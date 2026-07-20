@@ -4,7 +4,7 @@ date: 2026-07-20
 layout: "single"
 ---
 
-## Ji-won Jeong
+## Ji-won Jung
 
 ML Systems Engineer @ DK Techin (카카오 파견)
 

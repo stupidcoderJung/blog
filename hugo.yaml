@@ -1,16 +1,16 @@
 baseURL: "https://stupidcoderJung.github.io/blog/"
 languageCode: "ko"
-title: "Ji-won Jeong"
+title: "Ji-won Jung"
 theme: "PaperMod"
 
 params:
   env: production
   description: "ML Systems Engineer — from data pipelines to GPU optimization"
-  author: "Ji-won Jeong"
+  author: "Ji-won Jung"
 
   # Home page
   homeInfoParams:
-    Title: "Ji-won Jeong"
+    Title: "Ji-won Jung"
     Content: |
       ML Systems Engineer. 데이터 파이프라인, LLM Agent, GPU 최적화까지.
       
