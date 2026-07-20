@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="670" viewBox="0 0 1200 670" role="img" aria-labelledby="title desc">
+  <title id="title">디렉터리 전체를 훑는 방식과 알려진 파일 경로를 직접 여는 방식 비교</title>
+  <desc id="desc">왼쪽은 폴더를 열고 여러 파일 이름을 하나씩 확인한다. 오른쪽은 이미 알고 있는 meta.json 경로를 계산해 곧바로 연다.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 700 24px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 500 18px system-ui, sans-serif; fill: #334155; }
+      .file { font: 600 17px ui-monospace, monospace; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1200" height="670" rx="28" fill="#f8fafc"/>
+  <text x="600" y="50" text-anchor="middle" class="title">찾아다니기보다 주소를 계산한다</text>
+
+  <g transform="translate(55 90)">
+    <rect width="520" height="510" rx="22" fill="#ffffff" stroke="#ef4444" stroke-width="3"/>
+    <text x="260" y="45" text-anchor="middle" class="label">전체 목록에서 찾기</text>
+    <text x="260" y="76" text-anchor="middle" class="small">“이 폴더에는 무슨 파일이 있지?”</text>
+    <path d="M80 135 h150 l24 26 h186 v280 H80 z" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+    <g>
+      <rect x="122" y="195" width="276" height="38" rx="8" fill="#ffffff"/>
+      <text x="142" y="220" class="file">image-00.bin</text>
+      <rect x="122" y="245" width="276" height="38" rx="8" fill="#ffffff"/>
+      <text x="142" y="270" class="file">notes.txt</text>
+      <rect x="122" y="295" width="276" height="38" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+      <text x="142" y="320" class="file">meta.json  ← 찾았다</text>
+      <rect x="122" y="345" width="276" height="38" rx="8" fill="#ffffff"/>
+      <text x="142" y="370" class="file">preview.png</text>
+    </g>
+    <text x="260" y="478" text-anchor="middle" class="small">폴더 열기 + 목록 받기 + 이름 비교</text>
+  </g>
+
+  <g transform="translate(625 90)">
+    <rect width="520" height="510" rx="22" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+    <text x="260" y="45" text-anchor="middle" class="label">알려진 주소로 바로 가기</text>
+    <text x="260" y="76" text-anchor="middle" class="small">“ID 규칙으로 경로를 이미 안다”</text>
+    <rect x="60" y="135" width="400" height="70" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="260" y="178" text-anchor="middle" class="file">record_id = 123456</text>
+    <line x1="260" y1="205" x2="260" y2="258" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="60" y="266" width="400" height="94" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="260" y="301" text-anchor="middle" class="small">경로 규칙 적용</text>
+    <text x="260" y="334" text-anchor="middle" class="file">.../56/34/12/123456/</text>
+    <line x1="260" y1="360" x2="260" y2="411" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="60" y="419" width="400" height="54" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="260" y="453" text-anchor="middle" class="file">meta.json 바로 열기</text>
+  </g>
+  <text x="600" y="638" text-anchor="middle" class="small">운영 분석에서 디렉터리 탐색을 예외 경로로 옮긴 흐름을 공개용으로 다시 그린 그림</text>
+</svg>

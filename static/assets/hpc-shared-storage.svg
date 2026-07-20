@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">여러 계산 노드가 빠른 네트워크와 공유 저장소로 연결된 HPC 구조</title>
+  <desc id="desc">작업 스케줄러가 여러 계산 노드에 일을 나누고, 각 노드는 GPU와 로컬 임시 저장소를 사용하며, 모든 노드가 네트워크를 통해 하나의 공유 NAS에 접근한다.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 700 24px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 500 19px system-ui, sans-serif; fill: #334155; }
+      .tiny { font: 600 17px system-ui, sans-serif; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1200" height="760" rx="28" fill="#f8fafc"/>
+  <text x="600" y="52" text-anchor="middle" class="title">한 대의 큰 컴퓨터가 아니라, 역할을 나눈 여러 대의 팀</text>
+
+  <rect x="390" y="82" width="420" height="92" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="600" y="120" text-anchor="middle" class="label">작업 제출 · 스케줄러</text>
+  <text x="600" y="151" text-anchor="middle" class="small">“어느 노드가 어느 일을 맡을지” 정한다</text>
+
+  <line x1="600" y1="174" x2="600" y2="217" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="90" y="224" width="1020" height="92" rx="20" fill="#d1fae5" stroke="#059669" stroke-width="3"/>
+  <text x="600" y="264" text-anchor="middle" class="label">빠른 노드 간 네트워크</text>
+  <text x="600" y="296" text-anchor="middle" class="small">계산 결과와 파일 요청이 오가는 길</text>
+
+  <g>
+    <line x1="260" y1="316" x2="260" y2="362" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="600" y1="316" x2="600" y2="362" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="940" y1="316" x2="940" y2="362" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+
+  <g transform="translate(90 370)">
+    <rect width="340" height="220" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="170" y="42" text-anchor="middle" class="label">계산 노드 A</text>
+    <rect x="28" y="68" width="132" height="62" rx="12" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+    <text x="94" y="106" text-anchor="middle" class="tiny">CPU · 메모리</text>
+    <rect x="180" y="68" width="132" height="62" rx="12" fill="#fde68a" stroke="#ca8a04" stroke-width="2"/>
+    <text x="246" y="106" text-anchor="middle" class="tiny">GPU</text>
+    <rect x="28" y="148" width="284" height="48" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="170" y="179" text-anchor="middle" class="tiny">노드 안의 빠른 임시 저장소</text>
+  </g>
+
+  <g transform="translate(430 370)">
+    <rect width="340" height="220" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="170" y="42" text-anchor="middle" class="label">계산 노드 B</text>
+    <rect x="28" y="68" width="132" height="62" rx="12" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+    <text x="94" y="106" text-anchor="middle" class="tiny">CPU · 메모리</text>
+    <rect x="180" y="68" width="132" height="62" rx="12" fill="#fde68a" stroke="#ca8a04" stroke-width="2"/>
+    <text x="246" y="106" text-anchor="middle" class="tiny">GPU</text>
+    <rect x="28" y="148" width="284" height="48" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="170" y="179" text-anchor="middle" class="tiny">노드 안의 빠른 임시 저장소</text>
+  </g>
+
+  <g transform="translate(770 370)">
+    <rect width="340" height="220" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="170" y="42" text-anchor="middle" class="label">계산 노드 여러 대</text>
+    <rect x="28" y="68" width="132" height="62" rx="12" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+    <text x="94" y="106" text-anchor="middle" class="tiny">CPU · 메모리</text>
+    <rect x="180" y="68" width="132" height="62" rx="12" fill="#fde68a" stroke="#ca8a04" stroke-width="2"/>
+    <text x="246" y="106" text-anchor="middle" class="tiny">GPU</text>
+    <rect x="28" y="148" width="284" height="48" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+    <text x="170" y="179" text-anchor="middle" class="tiny">노드 안의 빠른 임시 저장소</text>
+  </g>
+
+  <g>
+    <line x1="260" y1="590" x2="260" y2="636" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="600" y1="590" x2="600" y2="636" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <line x1="940" y1="590" x2="940" y2="636" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+  <rect x="90" y="644" width="1020" height="88" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="600" y="682" text-anchor="middle" class="label">공유 NAS</text>
+  <text x="600" y="713" text-anchor="middle" class="small">모든 노드가 같은 파일을 보지만, 접근할 때마다 네트워크 길을 지난다</text>
+</svg>

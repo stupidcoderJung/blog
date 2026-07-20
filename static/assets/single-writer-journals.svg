@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">여러 워커가 한 완료 파일에 쓰는 구조와 워커별 저널 구조 비교</title>
+  <desc id="desc">왼쪽은 여러 워커가 같은 done 파일에 동시에 써 충돌한다. 오른쪽은 각 워커가 자기 저널만 쓰고 조정자가 검증 후 최종 목록을 만든다.</desc>
+  <defs>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#16a34a"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 700 23px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 500 18px system-ui, sans-serif; fill: #334155; }
+      .mono { font: 600 17px ui-monospace, monospace; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1200" height="700" rx="28" fill="#f8fafc"/>
+  <text x="600" y="50" text-anchor="middle" class="title">한 공책에 여러 사람이 동시에 쓰지 않는다</text>
+
+  <g transform="translate(55 90)">
+    <rect width="520" height="535" rx="22" fill="#fff7ed" stroke="#dc2626" stroke-width="3"/>
+    <text x="260" y="45" text-anchor="middle" class="label">위험: 모두가 같은 파일에 쓰기</text>
+    <g>
+      <rect x="42" y="110" width="120" height="54" rx="12" fill="#dbeafe"/>
+      <text x="102" y="144" text-anchor="middle" class="small">워커 A</text>
+      <rect x="42" y="205" width="120" height="54" rx="12" fill="#dbeafe"/>
+      <text x="102" y="239" text-anchor="middle" class="small">워커 B</text>
+      <rect x="42" y="300" width="120" height="54" rx="12" fill="#dbeafe"/>
+      <text x="102" y="334" text-anchor="middle" class="small">워커 C</text>
+    </g>
+    <g stroke="#dc2626" stroke-width="4">
+      <line x1="162" y1="137" x2="330" y2="219" marker-end="url(#arrowRed)"/>
+      <line x1="162" y1="232" x2="330" y2="232" marker-end="url(#arrowRed)"/>
+      <line x1="162" y1="327" x2="330" y2="245" marker-end="url(#arrowRed)"/>
+    </g>
+    <rect x="335" y="170" width="145" height="135" rx="14" fill="#fecaca" stroke="#dc2626" stroke-width="3"/>
+    <text x="407" y="214" text-anchor="middle" class="mono">done.txt</text>
+    <text x="407" y="248" text-anchor="middle" class="small">순서 충돌</text>
+    <text x="407" y="277" text-anchor="middle" class="small">기록 손상</text>
+    <path d="M245 390 l35 -35 l35 35 l35 -35 l35 35" fill="none" stroke="#dc2626" stroke-width="7"/>
+    <text x="260" y="435" text-anchor="middle" class="small">누가 어느 줄을 완성했는지</text>
+    <text x="260" y="465" text-anchor="middle" class="small">확실히 말하기 어렵다</text>
+  </g>
+
+  <g transform="translate(625 90)">
+    <rect width="520" height="535" rx="22" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+    <text x="260" y="45" text-anchor="middle" class="label">안전: 각자 쓰고 마지막에 합치기</text>
+    <g>
+      <rect x="35" y="95" width="100" height="48" rx="10" fill="#dbeafe"/>
+      <text x="85" y="126" text-anchor="middle" class="small">워커 A</text>
+      <rect x="35" y="180" width="100" height="48" rx="10" fill="#dbeafe"/>
+      <text x="85" y="211" text-anchor="middle" class="small">워커 B</text>
+      <rect x="35" y="265" width="100" height="48" rx="10" fill="#dbeafe"/>
+      <text x="85" y="296" text-anchor="middle" class="small">워커 C</text>
+      <rect x="185" y="95" width="145" height="48" rx="10" fill="#dcfce7"/>
+      <text x="257" y="126" text-anchor="middle" class="mono">A.jsonl</text>
+      <rect x="185" y="180" width="145" height="48" rx="10" fill="#dcfce7"/>
+      <text x="257" y="211" text-anchor="middle" class="mono">B.jsonl</text>
+      <rect x="185" y="265" width="145" height="48" rx="10" fill="#dcfce7"/>
+      <text x="257" y="296" text-anchor="middle" class="mono">C.jsonl</text>
+    </g>
+    <g stroke="#16a34a" stroke-width="4">
+      <line x1="135" y1="119" x2="182" y2="119" marker-end="url(#arrowGreen)"/>
+      <line x1="135" y1="204" x2="182" y2="204" marker-end="url(#arrowGreen)"/>
+      <line x1="135" y1="289" x2="182" y2="289" marker-end="url(#arrowGreen)"/>
+      <line x1="330" y1="119" x2="390" y2="198" marker-end="url(#arrowGreen)"/>
+      <line x1="330" y1="204" x2="390" y2="204" marker-end="url(#arrowGreen)"/>
+      <line x1="330" y1="289" x2="390" y2="210" marker-end="url(#arrowGreen)"/>
+    </g>
+    <rect x="395" y="157" width="100" height="96" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="445" y="194" text-anchor="middle" class="small">검증</text>
+    <text x="445" y="224" text-anchor="middle" class="small">합치기</text>
+    <line x1="445" y1="253" x2="445" y2="329" stroke="#16a34a" stroke-width="4" marker-end="url(#arrowGreen)"/>
+    <rect x="310" y="337" width="185" height="70" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+    <text x="402" y="366" text-anchor="middle" class="mono">final manifest</text>
+    <text x="402" y="392" text-anchor="middle" class="small">검증된 최종 목록</text>
+    <text x="260" y="466" text-anchor="middle" class="small">각 파일의 주인은 한 명이다.</text>
+    <text x="260" y="494" text-anchor="middle" class="small">그래서 잠금보다 구조가 단순하다.</text>
+  </g>
+  <text x="600" y="668" text-anchor="middle" class="small">동시 기록 손상 이슈의 원인과 해결 구조를 공개용으로 다시 그린 그림</text>
+</svg>

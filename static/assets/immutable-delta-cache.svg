@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="730" viewBox="0 0 1200 730" role="img" aria-labelledby="title desc">
+  <title id="title">각 워커의 로컬 SQLite와 공유 NAS의 불변 델타 교환 구조</title>
+  <desc id="desc">세 워커가 자기 로컬 SQLite에 상태를 저장하고 새로 생긴 항목만 델타 파일로 공유 NAS에 게시한다. 다른 워커는 완료된 델타만 읽어 자기 캐시에 합친다.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 700 23px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 500 18px system-ui, sans-serif; fill: #334155; }
+      .mono { font: 600 16px ui-monospace, monospace; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1200" height="730" rx="28" fill="#f8fafc"/>
+  <text x="600" y="50" text-anchor="middle" class="title">전체 장부를 덮어쓰지 말고, 새 내용만 봉투로 보낸다</text>
+
+  <g transform="translate(60 100)">
+    <rect width="300" height="205" rx="20" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="150" y="40" text-anchor="middle" class="label">워커 A</text>
+    <ellipse cx="150" cy="91" rx="100" ry="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <rect x="50" y="91" width="200" height="54" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <ellipse cx="150" cy="145" rx="100" ry="28" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+    <text x="150" y="123" text-anchor="middle" class="mono">local SQLite</text>
+    <text x="150" y="184" text-anchor="middle" class="small">A만 쓴다</text>
+  </g>
+  <g transform="translate(450 100)">
+    <rect width="300" height="205" rx="20" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="150" y="40" text-anchor="middle" class="label">워커 B</text>
+    <ellipse cx="150" cy="91" rx="100" ry="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <rect x="50" y="91" width="200" height="54" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <ellipse cx="150" cy="145" rx="100" ry="28" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+    <text x="150" y="123" text-anchor="middle" class="mono">local SQLite</text>
+    <text x="150" y="184" text-anchor="middle" class="small">B만 쓴다</text>
+  </g>
+  <g transform="translate(840 100)">
+    <rect width="300" height="205" rx="20" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="150" y="40" text-anchor="middle" class="label">워커 C</text>
+    <ellipse cx="150" cy="91" rx="100" ry="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <rect x="50" y="91" width="200" height="54" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <ellipse cx="150" cy="145" rx="100" ry="28" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+    <text x="150" y="123" text-anchor="middle" class="mono">local SQLite</text>
+    <text x="150" y="184" text-anchor="middle" class="small">C만 쓴다</text>
+  </g>
+
+  <g stroke="#334155" stroke-width="4" marker-end="url(#arrow)">
+    <line x1="210" y1="305" x2="325" y2="424"/>
+    <line x1="600" y1="305" x2="600" y2="405"/>
+    <line x1="990" y1="305" x2="875" y2="424"/>
+  </g>
+  <g>
+    <rect x="235" y="390" width="240" height="70" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="355" y="420" text-anchor="middle" class="mono">delta-A-001.jsonl</text>
+    <text x="355" y="447" text-anchor="middle" class="small">완성 뒤에는 수정하지 않음</text>
+    <rect x="480" y="390" width="240" height="70" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="600" y="420" text-anchor="middle" class="mono">delta-B-001.jsonl</text>
+    <text x="600" y="447" text-anchor="middle" class="small">새 항목만 담음</text>
+    <rect x="725" y="390" width="240" height="70" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="845" y="420" text-anchor="middle" class="mono">delta-C-001.jsonl</text>
+    <text x="845" y="447" text-anchor="middle" class="small">checksum으로 검증</text>
+  </g>
+  <rect x="90" y="510" width="1020" height="125" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="600" y="548" text-anchor="middle" class="label">공유 NAS: 완성된 델타와 작은 목록만 보관</text>
+  <text x="600" y="583" text-anchor="middle" class="small">각 워커는 다른 워커의 새 봉투를 읽어 자기 로컬 DB에 합친다</text>
+  <text x="600" y="612" text-anchor="middle" class="small">같은 봉투를 다시 읽어도 결과가 한 번만 반영되도록 설계한다</text>
+  <text x="600" y="690" text-anchor="middle" class="small">분산 캐시 덮어쓰기 이슈에서 발전한 델타 교환 구조를 공개용으로 다시 그린 그림</text>
+</svg>

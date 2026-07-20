@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">GPU 사용률이 높고 낮은 구간을 반복하는 패턴</title>
+  <desc id="desc">왼쪽 그래프에서 GPU 사용률은 계산 중에는 높지만 입력을 기다릴 때 바닥으로 내려간다. 오른쪽은 파일 찾기와 읽기가 막히면 GPU 앞의 일감 상자가 비는 구조를 보여 준다.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+    <style>
+      .title { font: 700 34px system-ui, sans-serif; fill: #0f172a; }
+      .label { font: 700 23px system-ui, sans-serif; fill: #0f172a; }
+      .small { font: 500 18px system-ui, sans-serif; fill: #334155; }
+      .axis { font: 500 16px system-ui, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="1200" height="650" rx="28" fill="#f8fafc"/>
+  <text x="600" y="50" text-anchor="middle" class="title">GPU가 쉬는 구간은 GPU 밖에서 만들어질 수 있다</text>
+
+  <rect x="55" y="90" width="590" height="485" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="350" y="130" text-anchor="middle" class="label">시간에 따른 GPU 사용률</text>
+  <line x1="115" y1="500" x2="600" y2="500" stroke="#64748b" stroke-width="2"/>
+  <line x1="115" y1="180" x2="115" y2="500" stroke="#64748b" stroke-width="2"/>
+  <text x="92" y="188" text-anchor="end" class="axis">100%</text>
+  <text x="92" y="347" text-anchor="end" class="axis">50%</text>
+  <text x="92" y="505" text-anchor="end" class="axis">0%</text>
+  <text x="355" y="535" text-anchor="middle" class="axis">시간</text>
+  <polyline points="120,470 145,210 175,195 205,205 235,198 260,470 300,472 325,466 350,215 385,202 415,210 445,200 470,465 505,468 535,220 565,205 595,215"
+            fill="none" stroke="#7c3aed" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="142" y="242" width="112" height="44" rx="10" fill="#dcfce7"/>
+  <text x="198" y="270" text-anchor="middle" class="small">계산 중</text>
+  <rect x="265" y="402" width="92" height="62" rx="10" fill="#fee2e2"/>
+  <text x="311" y="429" text-anchor="middle" class="small">입력</text>
+  <text x="311" y="452" text-anchor="middle" class="small">기다림</text>
+
+  <rect x="690" y="90" width="455" height="485" rx="20" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="918" y="130" text-anchor="middle" class="label">GPU 앞의 일감 전달 경로</text>
+  <rect x="755" y="175" width="325" height="64" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="918" y="215" text-anchor="middle" class="label">파일 찾기 · 읽기</text>
+  <line x1="918" y1="239" x2="918" y2="285" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="755" y="293" width="325" height="64" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="918" y="333" text-anchor="middle" class="label">전처리 · 요청 만들기</text>
+  <line x1="918" y1="357" x2="918" y2="403" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="755" y="411" width="325" height="64" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="918" y="451" text-anchor="middle" class="label">GPU 계산</text>
+  <rect x="710" y="505" width="415" height="45" rx="10" fill="#fee2e2"/>
+  <text x="918" y="534" text-anchor="middle" class="small">앞 단계가 늦으면 GPU는 기다릴 수밖에 없다</text>
+  <text x="600" y="620" text-anchor="middle" class="small">운영 이슈에 남긴 사용률 화면의 핵심 패턴을 공개용으로 단순화한 그림</text>
+</svg>
