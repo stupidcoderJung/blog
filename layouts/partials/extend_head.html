@@ -1,4 +1,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/mRXCJpT2IN6VMZyMxzC3eBQk9y36T9kx3SfBR1IkKx0mKfA3FviL55Rv" crossorigin="anonymous">
+<script>
+// Pre-process: fix Goldmark-parsed lists inside $$ math blocks
+// Goldmark converts + T_text to <li>T_text</li> inside $$ blocks
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find all <p> containing isolated $$ and fix adjacent content
+    var body = document.body.innerHTML;
+    // Fix: <li> items between $$ markers need to be merged back
+    // Pattern: $$... some content ... <li>T_xxx</li> ... $$
+    // We do this after DOM is loaded but before KaTeX
+    var articles = document.querySelectorAll('.post-content');
+    articles.forEach(function(article) {
+      var html = article.innerHTML;
+      // Replace <li> tags that appear between $$ markers
+      // Strategy: find $$ blocks and within them, unwrap <li> content
+      html = html.replace(/\$\$([\s\S]*?)\$\$/g, function(match, inner) {
+        // Unwrap <li> and </li> tags, restore newlines
+        inner = inner.replace(/<li>/g, '').replace(/<\/li>/g, '\n');
+        return '$$' + inner + '$$';
+      });
+      // Also fix <p> tags inside $$ blocks
+      html = html.replace(/\$\$([\s\S]*?)\$\$/g, function(match, inner) {
+        inner = inner.replace(/<\/?p>/g, '');
+        return '$$' + inner + '$$';
+      });
+      article.innerHTML = html;
+    });
+  });
+})();
+</script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B9mTepL0PV0iYsARLPESETWnPCYKg4CxTFOe4Ic7wL3Y9FtqTq7KqE" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
     onload="renderMathInElement(document.body, {
