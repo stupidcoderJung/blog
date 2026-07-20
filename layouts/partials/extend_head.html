@@ -1,42 +1,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/mRXCJpT2IN6VMZyMxzC3eBQk9y36T9kx3SfBR1IkKx0mKfA3FviL55Rv" crossorigin="anonymous">
 <script>
-// Fix Goldmark broken math: merge scattered DOM nodes between $$ markers
-// then let KaTeX auto-render process the fixed elements
-(function(){
-  function fixMath() {
-    var post = document.querySelector('.post-content');
-    if (!post) return;
-    var html = post.innerHTML;
-    // Find blocks between $$ markers and fix them
-    // The issue: Goldmark produces: $$<p>T1</p><ul><li>T2</li><li>T3</li></ul>$$
-    var fixed = html.replace(/\$\$([\s\S]*?)\$\$/g, function(all, inner) {
-      // Strip HTML tags but preserve text content
-      inner = inner.replace(/<[^>]+>/g, ' ');
-      // Collapse whitespace
-      inner = inner.replace(/\s{2,}/g, '\n');
-      inner = inner.trim();
-      return '$$' + inner + '$$';
-    });
-    if (fixed !== html) {
-      post.innerHTML = fixed;
-      // Trigger KaTeX auto-render
-      if (typeof renderMathInElement === 'function') {
-        renderMathInElement(post, {
-          delimiters: [
-            {left: '\\\\(', right: '\\\\)', display: false},
-            {left: '\\\\[', right: '\\\\]', display: true},
-            {left: '$$', right: '$$', display: true}
-          ]
-        });
-      }
-    }
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fixMath);
-  } else {
-    fixMath();
-  }
-})();
+document.addEventListener('DOMContentLoaded', function() {
+  var post = document.querySelector('.post-content');
+  if (!post) return;
+  var html = post.innerHTML;
+  var fixed = html.replace(/\$\$([\s\S]*?)\$\$/g, function(all, inner) {
+    inner = inner.replace(/<[^>]+>/g, ' ');
+    inner = inner.replace(/\s+/g, ' ');
+    return '$$' + inner.trim() + '$$';
+  });
+  if (fixed !== html) post.innerHTML = fixed;
+});
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B9mTepL0PV0iYsARLPESETWnPCYKg4CxTFOe4Ic7wL3Y9FtqTq7KqE" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '\\\\(', right: '\\\\)', display: false},{left: '\\\\[', right: '\\\\]', display: true},{left: '$$', right: '$$', display: true}]});"></script>
