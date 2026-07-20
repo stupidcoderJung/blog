@@ -44,6 +44,9 @@ params:
   # Date format
   dateFormat: "2006-01-02"
 
+  # KaTeX for math rendering
+  math: true
+
 # Menu
 menu:
   main:
