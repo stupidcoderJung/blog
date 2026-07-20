@@ -4,14 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
   var post = document.querySelector('.post-content');
   if (!post) return;
   var html = post.innerHTML;
-  var fixed = html.replace(/\$\$([\s\S]*?)\$\$/g, function(all, inner) {
-    inner = inner.replace(/<[^>]+>/g, ' ');
-    inner = inner.replace(/\s+/g, ' ');
-    return '$$' + inner.trim() + '$$';
+  // Convert [ ...LaTeX... ] to $$ ... $$
+  html = html.replace(/\[([^\]]*(?:\\text|\\le|\\approx|\\min|\\max|\\frac|\\sum|\\int|\\cdot|\\times|_\{)[^\]]*)\]/g, function(m, inner) {
+    return '<span class="math">$$' + inner.trim() + '$$</span>';
   });
-  if (fixed !== html) post.innerHTML = fixed;
+  // Convert ( ...LaTeX... ) to $ ... $
+  html = html.replace(/\(([^)]*(?:\\text|_\{|\\le|\\approx)[^)]*)\)/g, function(m, inner) {
+    return '<span class="math">$' + inner.trim() + '$</span>';
+  });
+  post.innerHTML = html;
 });
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B9mTepL0PV0iYsARLPESETWnPCYKg4CxTFOe4Ic7wL3Y9FtqTq7KqE" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '[', right: ']', display: true}]});"></script>
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
