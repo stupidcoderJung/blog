@@ -1,0 +1,76 @@
+baseURL: "https://2c6829.github.io/"
+languageCode: "ko"
+title: "Ji-won Jeong"
+theme: "PaperMod"
+
+params:
+  env: production
+  description: "ML Systems Engineer — from data pipelines to GPU optimization"
+  author: "Ji-won Jeong"
+
+  # Home page
+  homeInfoParams:
+    Title: "Ji-won Jeong"
+    Content: |
+      ML Systems Engineer. 데이터 파이프라인, LLM Agent, GPU 최적화까지.
+      
+      데이터가 서비스로 연결되는 전체 경로를 직접 설계하고 운영합니다.
+      
+      [GitHub](https://github.com/2c6829) · [Email](mailto:2c6829@gmail.com)
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/2c6829"
+    - name: email
+      url: "mailto:2c6829@gmail.com"
+
+  # Show breadcrumbs
+  ShowBreadCrumbs: false
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
+  ShowToc: true
+  TocOpen: false
+
+  # Comments (disabled for now)
+  comments: false
+
+  # Code highlighting
+  highlight:
+    style: "dracula"
+    lineNos: false
+
+  # Date format
+  dateFormat: "2006-01-02"
+
+# Menu
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+
+# Markdown
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: dracula
+
+# Output
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
