@@ -68,13 +68,9 @@ markup:
   goldmark:
     renderer:
       unsafe: true
-    passthrough:
-      block:
-        - ['$$', '$$']
-      inline:
-        - ['$', '$']
     extensions:
       passthrough:
+        enable: true
         delimiters:
           block:
             - ['$$', '$$']
