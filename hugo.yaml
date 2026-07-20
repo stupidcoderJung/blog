@@ -69,12 +69,10 @@ markup:
     renderer:
       unsafe: true
     passthrough:
-      enable: true
-      delimiters:
-        block:
-          - ['$$', '$$']
-        inline:
-          - ['$', '$']
+      block:
+        - ['$$', '$$']
+      inline:
+        - ['$', '$']
     extensions:
       passthrough:
         delimiters:
