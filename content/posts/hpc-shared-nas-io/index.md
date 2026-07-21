@@ -132,13 +132,13 @@ GPU가 실제로 관여하는 구간은 `모델 서버 대기 → 모델 추론`
 $$
 T_{\text{record}}
 = T_{\text{discover}}
-\+ T_{\text{metadata}}
-\+ T_{\text{payload}}
-\+ T_{\text{preprocess}}
-\+ T_{\text{queue}}
-\+ T_{\text{inference}}
-\+ T_{\text{persist}}
-\+ T_{\text{checkpoint}}
+ {+} T_{\text{metadata}}
+ {+} T_{\text{payload}}
+ {+} T_{\text{preprocess}}
+ {+} T_{\text{queue}}
+ {+} T_{\text{inference}}
+ {+} T_{\text{persist}}
+ {+} T_{\text{checkpoint}}
 $$
 
 직렬 처리라면 처리량은 대략 $1/T_{\text{record}}$이다. 비동기 파이프라인에서는 여러 구간을 겹칠 수 있지만, 각 단계의 유효 용량 중 가장 작은 값이 전체 처리량의 상한이 된다.
@@ -416,10 +416,10 @@ $$
 T_{\text{meta}}
 \approx
 N_{\text{lookup}}L_{\text{lookup}}
-\+ N_{\text{stat}}L_{\text{stat}}
-\+ N_{\text{open}}L_{\text{open}}
-\+ N_{\text{dir}}L_{\text{dir}}
-\+ N_{\text{sync}}L_{\text{sync}}
+ {+} N_{\text{stat}}L_{\text{stat}}
+ {+} N_{\text{open}}L_{\text{open}}
+ {+} N_{\text{dir}}L_{\text{dir}}
+ {+} N_{\text{sync}}L_{\text{sync}}
 $$
 
 즉, 파일 이름 찾기에 쓴 시간은 `찾은 횟수 × 한 번의 대기 시간`에 가깝다. `stat`, `open`, 폴더 목록 읽기, 저장 확정도 같은 방식으로 더한다. 여기에는 네트워크 왕복뿐 아니라 앞선 요청을 기다린 시간과 재전송 시간도 들어간다.
@@ -440,7 +440,7 @@ I/O 시간을 아주 거칠게 다음처럼 나눌 수 있다.
 $$
 T_{\text{io}}
 \approx N_{\text{round trips}} \cdot RTT
-\+ \frac{B}{BW}
+ {+} \frac{B}{BW}
 $$
 
 $B$는 옮길 데이터의 크기이고, $BW$는 한 번에 얼마나 많이 옮길 수 있는지를 나타내는 대역폭이다. 식의 왼쪽 항은 “왕복을 몇 번 했는가”, 오른쪽 항은 “데이터를 옮기는 데 얼마나 걸렸는가”다. 작은 파일에서는 왼쪽이, 큰 연속 파일에서는 오른쪽이 더 커지기 쉽다.
@@ -1002,7 +1002,7 @@ $$
 $$
 \text{with manifest}
 \approx R \times C_{\text{discover}}
-\+ E \times R \times C_{\text{direct}}
+ {+} E \times R \times C_{\text{direct}}
 $$
 
 $E$는 실행 횟수다. 같은 데이터셋을 여러 모델, 여러 설정, 여러 평가 작업이 재사용할수록 매니페스트의 이득이 커진다.
@@ -1470,7 +1470,7 @@ timeout이 발생하면 같은 요청이 재시도된다. 원래 동시성 64라
 
 $$
 \text{effective offered load}
-= \text{new requests} + \text{retries}
+= \text{new requests} {+} \text{retries}
 $$
 
 과부하 때문에 시간 초과가 났는데 즉시 다시 보내면 과부하를 더 키운다. 재시도 사이의 간격을 0.5초, 1초, 2초처럼 늘리는 **지수 백오프(exponential backoff)**를 사용한다. 여러 워커가 같은 순간 다시 몰리지 않도록 간격에 작은 무작위 흔들림인 **지터(jitter)**도 넣는다. 전체 요청 중 재시도가 차지할 수 있는 비율도 제한한다.
